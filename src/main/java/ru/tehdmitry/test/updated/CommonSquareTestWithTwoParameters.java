@@ -4,8 +4,10 @@ package ru.tehdmitry.test.updated;
 import ru.tehdmitry.gcode.CodeComment;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class CommonSquareTestWithTwoParameters extends CommonSquareTestWithOneParameter {
 
@@ -15,7 +17,7 @@ public abstract class CommonSquareTestWithTwoParameters extends CommonSquareTest
 
     @Override
     public List<String> getBottomDescription() {
-        DecimalFormat dfRound = new DecimalFormat("0.##");
+        DecimalFormat dfRound = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
 
         List<String> result = new ArrayList<>();
         result.add(getSideParameterName());
@@ -25,8 +27,7 @@ public abstract class CommonSquareTestWithTwoParameters extends CommonSquareTest
 
     @Override
     public String getDescription() {
-        DecimalFormat dfRound = new DecimalFormat("0.##");
-
+        DecimalFormat dfRound = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
         return getSideParameterName() + " [" + dfRound.format(sideParameterValue(0)) + "..." + dfRound.format(sideParameterValue(sideTestCount - 1)) + "] vs. " +
                 getLayerParameterName() + " [" + dfRound.format(layerTestParameterValue(0)) + "..." + dfRound.format(layerTestParameterValue(layerTestCount - 1)) + "]"
                 + "_" + getTestName();

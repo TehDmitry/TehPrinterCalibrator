@@ -7,8 +7,10 @@ import ru.tehdmitry.configuration.PrinterConfiguration;
 import ru.tehdmitry.gcode.*;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class RetractionTestCube implements TestPattern {
     private final Logger log = LogManager.getLogger(RetractionTestCube.class);
@@ -21,7 +23,7 @@ public class RetractionTestCube implements TestPattern {
     //
 //    private final double layersPerTest;
 //    private final int numTests;
-    DecimalFormat dfRound = new DecimalFormat("0.##");
+    DecimalFormat dfRound = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
 
 
     private final double wallPieceLengthMm = 10;

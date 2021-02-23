@@ -8,6 +8,8 @@ import ru.tehdmitry.configuration.PrinterConfiguration;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 // Naming should be
 // XYNameVsZNameTest
@@ -25,7 +27,7 @@ public abstract class CommonSingleTest implements SingleTest {
     }
 
     public void writeFile(String data, String filename) {
-        DecimalFormat df = new DecimalFormat("0000_");
+        DecimalFormat df = new DecimalFormat("0000_", new DecimalFormatSymbols(Locale.US));
         filename = df.format(calibrationConfiguration.getRunCount()) + filename.replace(" ", "_");
 
         log.trace("writing file: {} size:{}", filename, data.length());

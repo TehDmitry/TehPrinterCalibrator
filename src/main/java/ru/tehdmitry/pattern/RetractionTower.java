@@ -9,8 +9,10 @@ import ru.tehdmitry.configuration.CalibrationConfiguration;
 import ru.tehdmitry.gcode.*;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class RetractionTower implements TestPattern {
     private final Logger log = LogManager.getLogger(RetractionTower.class);
@@ -21,7 +23,7 @@ public class RetractionTower implements TestPattern {
     private final double layersPerTest;
     private final int numTests;
 
-    DecimalFormat dfRound = new DecimalFormat("0.##");
+    DecimalFormat dfRound = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
 
     private double raftSize = 60;
 
@@ -57,7 +59,7 @@ public class RetractionTower implements TestPattern {
         List<GCode> gCodes = new ArrayList<>();
         List<GCode> headerGCodes = new ArrayList<>();
 
-        DecimalFormat df = new DecimalFormat("0.00");
+        DecimalFormat df = new DecimalFormat("0.00", new DecimalFormatSymbols(Locale.US));
 
         headerGCodes.add(new CodeComment("RetractionTower Test"));
         headerGCodes.add(new CodeComment(getDescription()));

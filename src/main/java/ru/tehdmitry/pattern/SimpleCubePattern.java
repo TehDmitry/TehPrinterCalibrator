@@ -8,8 +8,10 @@ import ru.tehdmitry.configuration.PrinterConfiguration;
 import ru.tehdmitry.gcode.*;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SimpleCubePattern extends TestPatternImpl {
 
@@ -25,7 +27,7 @@ public class SimpleCubePattern extends TestPatternImpl {
     @Setter
     private SimpleCubePatternCallbacks cubeTestCallbacks;
 
-    DecimalFormat dfRound = new DecimalFormat("0.##");
+    DecimalFormat dfRound = new DecimalFormat("0.#####", new DecimalFormatSymbols(Locale.US));
 
     public SimpleCubePattern(PrinterConfiguration printerConfiguration, CalibrationConfiguration calibrationConfiguration, double cubeSizeMm, int layersPerTest, int numTests) {
         super(printerConfiguration, calibrationConfiguration, cubeSizeMm, cubeSizeMm);

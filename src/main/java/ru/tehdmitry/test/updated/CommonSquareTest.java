@@ -15,11 +15,11 @@ import java.awt.geom.Point2D;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-
+import java.util.Locale;
 
 
 @Getter
@@ -159,8 +159,6 @@ public abstract class CommonSquareTest extends CommonTestImpl {
         }
     }
 
-
-
     protected void setExtruderTemperatureForLayerTest(int currentTest) {
         retraction(feedRateRetraction, printerConfiguration.getRetractionDistance());
         gCodes.add(new M109_SetExtruderTemperatureAndWait(printerConfiguration.getExtruderTemperature()));
@@ -168,7 +166,7 @@ public abstract class CommonSquareTest extends CommonTestImpl {
     }
 
     protected void nextLayer() {
-        DecimalFormat dfRound = new DecimalFormat("0.##");
+        DecimalFormat dfRound = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
 
         G0_G1_Move move = new G0_G1_Move(false).setF(feedRateMove).setZ(currentLayer * printerConfiguration.getLayerHeight());
 

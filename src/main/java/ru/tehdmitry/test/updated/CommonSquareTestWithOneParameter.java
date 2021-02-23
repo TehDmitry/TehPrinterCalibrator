@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.tehdmitry.gcode.CodeComment;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class CommonSquareTestWithOneParameter extends CommonSquareTest {
 
@@ -26,7 +28,7 @@ public abstract class CommonSquareTestWithOneParameter extends CommonSquareTest 
 
     @Override
     public List<String> getTopDescription() {
-        DecimalFormat dfRound = new DecimalFormat("0.##");
+        DecimalFormat dfRound = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
         List<String> result = new ArrayList<>();
         result.add(getLayerParameterName());
         result.add(dfRound.format(layerTestParameterValue(layerTestCount - 1)));
@@ -36,7 +38,7 @@ public abstract class CommonSquareTestWithOneParameter extends CommonSquareTest 
 
     @Override
     public String getDescription() {
-        DecimalFormat dfRound = new DecimalFormat("0.##");
+        DecimalFormat dfRound = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
 
         return getLayerParameterName() + " [" + dfRound.format(layerTestParameterValue(0)) + "..." + dfRound.format(layerTestParameterValue(layerTestCount - 1)) + "]"
                 + "_" + getTestName();

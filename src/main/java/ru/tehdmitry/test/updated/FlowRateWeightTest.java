@@ -10,6 +10,8 @@ import ru.tehdmitry.gcode.*;
 
 import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class FlowRateWeightTest extends CommonTestImpl {
 
@@ -112,7 +114,7 @@ public class FlowRateWeightTest extends CommonTestImpl {
 
     @Override
     public String getDescription() {
-        DecimalFormat dfRound = new DecimalFormat("0.##");
+        DecimalFormat dfRound = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
 
         return "Temperature [" + dfRound.format(getTemperature(0)) + "..." + dfRound.format(getTemperature(5)) + "] vs. " +
                 "VolumetricFlow [" + dfRound.format(getVolumetricFlowRate(0)) + "..." + dfRound.format(getVolumetricFlowRate(5)) + "]"
