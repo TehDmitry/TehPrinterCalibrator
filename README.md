@@ -3,8 +3,10 @@
 Pattern generator for 3D printer calibration 
 
 * TemperatureTowerTest
-* FlowRateWeightTest 
-* RetractOnLongDistanceTest
+* FlowRateWeightTest (Temperature vs. VolumetricFlow)
+* RetractOnLongDistanceTest (Retraction_Distance vs. Retraction Speed)
+* RetractOnLongDistanceTemperature (Retraction Distance vs. Temperature)
+* CubeJunctionDeviation (Junction Deviation)
 
 ## Usage
 
