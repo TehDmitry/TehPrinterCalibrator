@@ -25,9 +25,11 @@ public class Raft {
         for (int i = 0; i <= (int) Math.round(raftSizeY / raftStep) / 2; i++) {
             double curX = startX + (i * 2 * raftStep);
             gCodes.add(new G0_G1_Move(false).setX(curX).setY(startY + raftSizeY).setF(feedRatePrint * 0.5).setExtrusionLength(extruder.getNextEValue(raftSizeY)));
-            gCodes.add(new G0_G1_Move(true).setX(curX + raftStep).setY(startY + raftSizeY).setF(feedRateMove));
-            gCodes.add(new G0_G1_Move(false).setX(curX + raftStep).setY(startY).setF(feedRatePrint * 0.5).setExtrusionLength(extruder.getNextEValue(raftSizeY)));
-            gCodes.add(new G0_G1_Move(true).setX(curX + 2 * raftStep).setY(startY).setF(feedRateMove));
+            if(curX < startX + raftSizeX) {
+                gCodes.add(new G0_G1_Move(true).setX(curX + raftStep).setY(startY + raftSizeY).setF(feedRateMove));
+                gCodes.add(new G0_G1_Move(false).setX(curX + raftStep).setY(startY).setF(feedRatePrint * 0.5).setExtrusionLength(extruder.getNextEValue(raftSizeY)));
+                gCodes.add(new G0_G1_Move(true).setX(curX + 2 * raftStep).setY(startY).setF(feedRateMove));
+            }
         }
 
         // Bring back to raft origin
@@ -41,9 +43,11 @@ public class Raft {
         for (int i = 0; i <= (int) Math.round(raftSizeX / raftStep) / 2; i++) {
             double curY = startY + (i * 2 * raftStep);
             gCodes.add(new G0_G1_Move(false).setX(startX + raftSizeX).setY(curY).setF(feedRatePrint * 0.65).setExtrusionLength(extruder.getNextEValue(raftSizeX)));
-            gCodes.add(new G0_G1_Move(true).setX(startX + raftSizeX).setY(curY + raftStep).setF(feedRateMove));
-            gCodes.add(new G0_G1_Move(false).setX(startX).setY(curY + raftStep).setF(feedRatePrint * 0.65).setExtrusionLength(extruder.getNextEValue(raftSizeX)));
-            gCodes.add(new G0_G1_Move(true).setX(startX).setY(curY + 2 * raftStep).setF(feedRateMove));
+            if(curY < startY + raftSizeY) {
+                gCodes.add(new G0_G1_Move(true).setX(startX + raftSizeX).setY(curY + raftStep).setF(feedRateMove));
+                gCodes.add(new G0_G1_Move(false).setX(startX).setY(curY + raftStep).setF(feedRatePrint * 0.65).setExtrusionLength(extruder.getNextEValue(raftSizeX)));
+                gCodes.add(new G0_G1_Move(true).setX(startX).setY(curY + 2 * raftStep).setF(feedRateMove));
+            }
         }
 
         gCodes.add(new CodeComment("Raft end"));
