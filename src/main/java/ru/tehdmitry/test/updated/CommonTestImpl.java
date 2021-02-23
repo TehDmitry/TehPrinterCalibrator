@@ -100,7 +100,18 @@ public abstract class CommonTestImpl implements CommonTest {
     }
 
     protected void extrudeTo(Point2D.Double position, double feedRate) {
-        gCodes.add(new G0_G1_Move(false).setX(position.getX()).setY(position.getY()).setF(feedRate).setExtrusionLength(extruder.getNextEValue(previousMove.distance(position))));
+        double distance = previousMove.distance(position);
+        double extrudedArea = (printerConfiguration.getExtrusionWidth() - printerConfiguration.getLayerHeight()) *  printerConfiguration.getLayerHeight() + Math.PI * Math.pow(( printerConfiguration.getLayerHeight() / 2), 2);
+        double extrudedAreaVolume = extrudedArea * distance * printerConfiguration.getExtrusionMultiplier();
+        double time = distance/  (feedRate/60);
+        double volumetricFlowRate = extrudedAreaVolume / time;
+
+        if(volumetricFlowRate > printerConfiguration.getMaxVolumetricFlowRate()) {
+            DecimalFormat dfRound = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
+            log.error("volumetricFlowRate {} exceeds limit {}. try to decrease printing speed", dfRound.format(volumetricFlowRate), dfRound.format(printerConfiguration.getMaxVolumetricFlowRate()));
+        }
+
+        gCodes.add(new G0_G1_Move(false).setX(position.getX()).setY(position.getY()).setF(feedRate).setExtrusionLength(extruder.getNextEValue(distance)));
         previousMove = position;
     }
 
