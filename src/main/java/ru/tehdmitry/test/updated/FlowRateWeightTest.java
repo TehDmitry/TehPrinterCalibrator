@@ -28,7 +28,7 @@ public class FlowRateWeightTest extends CommonTestImpl {
     protected double volumetricFlowRateStart = 5; //mm³/s
     @JsonProperty
     protected double volumetricFlowRateInc = 5;
-
+    @JsonProperty
     protected double extrusionLength = 250.0;
 
     @Override
