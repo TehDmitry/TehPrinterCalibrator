@@ -14,7 +14,7 @@ public class RetractOnLongDistanceTest extends GTowerTest {
     protected double retractionDistanceStart = 2.0;
 
     @JsonProperty
-    protected double retractionDistanceInc = -1.0;
+    protected double retractionDistanceInc = 0.0; //0.0 for auto
 
     @JsonProperty
     protected double retractionSpeedStart = 10;
@@ -70,7 +70,7 @@ public class RetractOnLongDistanceTest extends GTowerTest {
     public double sideParameterValue(int sideNumber) {
 
         double inc = retractionDistanceInc;
-        if (retractionDistanceInc <= 0) {
+        if (Math.round(retractionDistanceInc) <= 0) {
             inc = Math.floor(((printerConfiguration.getNozzleLength() - retractionDistanceStart) / getSideTestCount()) * 10.0) / 10.0;
         }
 
